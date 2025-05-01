@@ -13,6 +13,7 @@ export default defineConfig({
         say_hello: 'say-hello.html',
         global_counter: 'global-counter.html',
         auto_counter: 'auto-counter.html',
+        user: 'user.html',
       },
     },
   },
