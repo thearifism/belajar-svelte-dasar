@@ -1,8 +1,16 @@
 <script>
-  console.log("Hello Svelte");
+  import Logo from "./Logo.svelte";
+
+  const name = "Svelte";
+  const content = "<h2>Hello World!</h2>";
 </script>
 
-<h1>Hello Svelte!</h1>
+<h1>Hello {name.toUpperCase()}!</h1>
+
+{@html content}
+
+<Logo />
+<Logo />
 
 <style>
   h1 {
