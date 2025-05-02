@@ -1,22 +1,58 @@
 <script>
+  import EditTodo from "./EditTodo.svelte";
   import Todo from "./Todo.svelte";
 
-  const data = $state([
-    { id: 1, name: "Belajar HTML", done: true },
-    { id: 2, name: "Belajar CSS", done: false },
-    { id: 3, name: "Belajar JavaScript", done: true },
-    { id: 4, name: "Belajar NodeJS", done: false },
-  ]);
+  let data = $state([]);
 
-  function remove() {
-    data.shift();
+  let id = 0;
+
+  function add(e) {
+    e.preventDefault();
+
+    const input = document.getElementById("todo");
+    data.push({
+      id: id++,
+      name: input.value,
+    });
+    input.value = "";
+  }
+
+  function edit(id) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === id) {
+        data[i] = { ...data[i], edit: true };
+      }
+    }
+  }
+
+  function onEdit(id, name) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === id) {
+        data[i] = { ...data[i], name, edit: false };
+      }
+    }
+  }
+
+  function remove(id) {
+    data = data.filter((item) => item.id !== id);
   }
 </script>
 
-<button onclick={remove}>Remove</button>
+<form>
+  <input type="text" id="todo" />
+  <button onclick={add}>Add</button>
+</form>
 
 <ul>
   {#each data as todo (todo.id)}
-    <li><Todo {...todo} /></li>
+    <li>
+      {#if todo.edit}
+        <EditTodo id={todo.id} name={todo.name} onedit={onEdit} />
+      {:else}
+        <Todo {...todo} />
+        <button onclick={() => edit(todo.id)}>Edit</button>
+        <button onclick={() => remove(todo.id)}>Remove</button>
+      {/if}
+    </li>
   {/each}
 </ul>
