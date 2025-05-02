@@ -1,4 +1,5 @@
 <script>
+  import { fade, fly } from "svelte/transition";
   import EditTodo from "./EditTodo.svelte";
   import Todo from "./Todo.svelte";
 
@@ -45,7 +46,14 @@
 
 <ul>
   {#each data as todo (todo.id)}
-    <li>
+    <li
+      in:fly={{ y: -200, duration: 2000 }}
+      out:fly={{ y: 200, duration: 2000 }}
+      onintrostart={() => console.log("intro started")}
+      onintroend={() => console.log("intro ended")}
+      onoutrostart={() => console.log("outro started")}
+      onoutroend={() => console.log("outro ended")}
+    >
       {#if todo.edit}
         <EditTodo id={todo.id} name={todo.name} onedit={onEdit} />
       {:else}
