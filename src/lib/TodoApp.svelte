@@ -39,6 +39,25 @@
   }
 </script>
 
+{#snippet todoRow(todo)}
+  <li
+    in:fly={{ y: -200, duration: 2000 }}
+    out:fly={{ y: 200, duration: 2000 }}
+    onintrostart={() => console.log("intro started")}
+    onintroend={() => console.log("intro ended")}
+    onoutrostart={() => console.log("outro started")}
+    onoutroend={() => console.log("outro ended")}
+  >
+    {#if todo.edit}
+      <EditTodo id={todo.id} name={todo.name} onedit={onEdit} />
+    {:else}
+      <Todo {...todo} />
+      <button onclick={() => edit(todo.id)}>Edit</button>
+      <button onclick={() => remove(todo.id)}>Remove</button>
+    {/if}
+  </li>
+{/snippet}
+
 <form>
   <input type="text" id="todo" bind:value={name} />
   <button onclick={add}>Add</button>
@@ -46,22 +65,7 @@
 
 <ul>
   {#each data as todo (todo.id)}
-    <li
-      in:fly={{ y: -200, duration: 2000 }}
-      out:fly={{ y: 200, duration: 2000 }}
-      onintrostart={() => console.log("intro started")}
-      onintroend={() => console.log("intro ended")}
-      onoutrostart={() => console.log("outro started")}
-      onoutroend={() => console.log("outro ended")}
-    >
-      {#if todo.edit}
-        <EditTodo id={todo.id} name={todo.name} onedit={onEdit} />
-      {:else}
-        <Todo {...todo} />
-        <button onclick={() => edit(todo.id)}>Edit</button>
-        <button onclick={() => remove(todo.id)}>Remove</button>
-      {/if}
-    </li>
+    {@render todoRow(todo)}
   {/each}
 </ul>
 
