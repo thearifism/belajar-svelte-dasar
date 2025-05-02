@@ -1,11 +1,10 @@
 <script>
-  const { id, name, onedit } = $props();
+  let { id, name, onedit } = $props();
 
   function save() {
-    const input = document.getElementById(id);
-    onedit(id, input.value);
+    onedit(id, name);
   }
 </script>
 
-{id} <input type="text" {id} value={name} />
+{id} <input type="text" {id} bind:value={name} />
 <button onclick={save}>Save</button>
