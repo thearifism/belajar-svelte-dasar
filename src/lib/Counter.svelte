@@ -18,6 +18,16 @@
   });
 </script>
 
-<h1>{count.join(" + ")} = {total}</h1>
+<h1 class={total % 2 === 0 ? "red" : "blue"}>{count.join(" + ")} = {total}</h1>
 
 <button onclick={increment}>Increment</button>
+
+<style>
+  .red {
+    color: red;
+  }
+
+  .blue {
+    color: blue;
+  }
+</style>
