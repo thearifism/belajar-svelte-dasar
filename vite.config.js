@@ -18,6 +18,7 @@ export default defineConfig({
         article: 'article.html',
         time: 'time.html',
         box: 'box.html',
+        student: 'student.html',
       },
     },
   },
